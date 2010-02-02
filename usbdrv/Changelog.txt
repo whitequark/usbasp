@@ -261,3 +261,17 @@ Scroll down to the bottom to see the most recent changes.
     code distributed under GPLv3.
 
 * Release 2008-11-26
+
+  - Removed libusb-win32 dependency for hid-data example in Makefile.windows.
+    It was never required and confused many people.
+  - Added extern uchar usbRxToken to usbdrv.h.
+  - Integrated a module with CRC checks at 18 MHz by Lukas Schrittwieser.
+
+* Release 2009-03-23
+
+  - Hid-mouse example used settings from hid-data example, fixed that.
+  - Renamed project to V-USB due to a trademark issue with Atmel(r).
+  - Changed CommercialLicense.txt and USBID-License.txt to make the
+    background of USB ID registration clearer.
+
+* Release 2009-04-15

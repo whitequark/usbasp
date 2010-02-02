@@ -1,11 +1,11 @@
 /* Name: usbconfig.h
- * Project: AVR USB driver
+ * Project: V-USB, virtual USB port for Atmel's(r) AVR(r) microcontrollers
  * Author: Christian Starkjohann
  * Creation Date: 2005-04-01
  * Tabsize: 4
  * Copyright: (c) 2005 by OBJECTIVE DEVELOPMENT Software GmbH
  * License: GNU GPL v2 (see License.txt), GNU GPL v3 or proprietary (CommercialLicense.txt)
- * This Revision: $Id: usbconfig-prototype.h 692 2008-11-07 15:07:40Z cs $
+ * This Revision: $Id: usbconfig-prototype.h 740 2009-04-13 18:23:31Z cs $
  */
 
 #ifndef __usbconfig_h_included__
@@ -14,7 +14,7 @@
 /*
 General Description:
 This file is an example configuration (with inline documentation) for the USB
-driver. It configures AVR-USB for USB D+ connected to Port D bit 2 (which is
+driver. It configures V-USB for USB D+ connected to Port D bit 2 (which is
 also hardware interrupt 0 on many devices) and USB D- to Port D bit 4. You may
 wire the lines to any other port, as long as D+ is also wired to INT0 (or any
 other hardware interrupt, as long as it is the highest level interrupt, see
@@ -44,11 +44,17 @@ section at the end of this file).
  * markers every millisecond.]
  */
 #define USB_CFG_CLOCK_KHZ       (F_CPU/1000)
-/* Clock rate of the AVR in MHz. Legal values are 12000, 12800, 15000, 16000,
+/* Clock rate of the AVR in kHz. Legal values are 12000, 12800, 15000, 16000,
  * 16500 and 20000. The 12.8 MHz and 16.5 MHz versions of the code require no
  * crystal, they tolerate +/- 1% deviation from the nominal frequency. All
  * other rates require a precision of 2000 ppm and thus a crystal!
  * Default if not specified: 12 MHz
+ */
+#define USB_CFG_CHECK_CRC       0
+/* Define this to 1 if you want that the driver checks integrity of incoming
+ * data packets (CRC checks). CRC checks cost quite a bit of code size and are
+ * currently only available for 18 MHz crystal clock. You must choose
+ * USB_CFG_CLOCK_KHZ = 18000 if you enable this option.
  */
 
 /* ----------------------- Optional Hardware Config ------------------------ */

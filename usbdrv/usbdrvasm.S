@@ -1,11 +1,11 @@
 /* Name: usbdrvasm.S
- * Project: AVR USB driver
+ * Project: V-USB, virtual USB port for Atmel's(r) AVR(r) microcontrollers
  * Author: Christian Starkjohann
  * Creation Date: 2007-06-13
  * Tabsize: 4
  * Copyright: (c) 2007 by OBJECTIVE DEVELOPMENT Software GmbH
  * License: GNU GPL v2 (see License.txt), GNU GPL v3 or proprietary (CommercialLicense.txt)
- * Revision: $Id: usbdrvasm.S 692 2008-11-07 15:07:40Z cs $
+ * Revision: $Id: usbdrvasm.S 740 2009-04-13 18:23:31Z cs $
  */
 
 /*
@@ -26,7 +26,8 @@ the file appropriate for the given clock rate.
 #define cnt     r19
 #define x3      r20
 #define x4      r21
-#define bitcnt  r22
+#define x5		r22
+#define bitcnt  x5
 #define phase   x4
 #define leap    x4
 
@@ -279,18 +280,26 @@ usbMFTimeout:
 #   define USB_CFG_CLOCK_KHZ 12000
 #endif
 
-#if USB_CFG_CLOCK_KHZ == 12000
-#   include "usbdrvasm12.inc"
-#elif USB_CFG_CLOCK_KHZ == 12800
-#   include "usbdrvasm128.inc"
-#elif USB_CFG_CLOCK_KHZ == 15000
-#   include "usbdrvasm15.inc"
-#elif USB_CFG_CLOCK_KHZ == 16000
-#   include "usbdrvasm16.inc"
-#elif USB_CFG_CLOCK_KHZ == 16500
-#   include "usbdrvasm165.inc"
-#elif USB_CFG_CLOCK_KHZ == 20000
-#   include "usbdrvasm20.inc"
-#else
-#   error "USB_CFG_CLOCK_KHZ is not one of the supported rates!"
-#endif
+#if USB_CFG_CHECK_CRC   /* separate dispatcher for CRC type modules */
+#   if USB_CFG_CLOCK_KHZ == 18000
+#       include "usbdrvasm18-crc.inc"
+#   else
+#       error "USB_CFG_CLOCK_KHZ is not one of the supported crc-rates!"
+#   endif
+#else   /* USB_CFG_CHECK_CRC */
+#   if USB_CFG_CLOCK_KHZ == 12000
+#       include "usbdrvasm12.inc"
+#   elif USB_CFG_CLOCK_KHZ == 12800
+#       include "usbdrvasm128.inc"
+#   elif USB_CFG_CLOCK_KHZ == 15000
+#       include "usbdrvasm15.inc"
+#   elif USB_CFG_CLOCK_KHZ == 16000
+#       include "usbdrvasm16.inc"
+#   elif USB_CFG_CLOCK_KHZ == 16500
+#       include "usbdrvasm165.inc"
+#   elif USB_CFG_CLOCK_KHZ == 20000
+#       include "usbdrvasm20.inc"
+#   else
+#       error "USB_CFG_CLOCK_KHZ is not one of the supported non-crc-rates!"
+#   endif
+#endif /* USB_CFG_CHECK_CRC */
