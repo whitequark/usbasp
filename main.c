@@ -43,7 +43,7 @@ uchar usbFunctionSetup(uchar data[8]) {
 	if (data[1] == USBASP_FUNC_CONNECT) {
 
 		/* set SCK speed */
-		if ((PINC & (1 << PC2)) == 0) {
+		if ((SLOW_SCK_PIN & (1 << SLOW_SCK_NUM)) == 0) {
 			ispSetSCKOption(USBASP_ISP_SCK_8);
 		} else {
 			ispSetSCKOption(prog_sck);
@@ -232,6 +232,8 @@ int main(void) {
 	/* all inputs except PC0, PC1 */
 	DDRC = 0x03;
 	ledGreenOn();
+
+	SLOW_SCK_PORT |= 1 << SLOW_SCK_NUM;
 
 	/* init timer */
 	clockInit();
