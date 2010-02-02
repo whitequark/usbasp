@@ -58,10 +58,10 @@ main.hex:	main.bin
 	avr-objcopy -j .text -j .data -O ihex main.bin main.hex
 
 flash:
-	avrdude -c ${ISP} -p ${TARGET} -P ${PORT} -U flash:w:main.hex
+	avrdude -c ${ISP} -p ${TARGET} ${PORT} -U flash:w:main.hex
 
 fuses:
-	avrdude -c ${ISP} -p ${TARGET} -P ${PORT} -u -U hfuse:w:$(HFUSE):m -U lfuse:w:$(LFUSE):m
+	avrdude -c ${ISP} -p ${TARGET} ${PORT} -u -U hfuse:w:$(HFUSE):m -U lfuse:w:$(LFUSE):m
 
 avrdude:
-	avrdude -c ${ISP} -p ${TARGET} -P ${PORT} -v
+	avrdude -c ${ISP} -p ${TARGET} ${PORT} -v
