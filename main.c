@@ -233,7 +233,7 @@ int main(void) {
 	DDRC = 0x03;
 	ledGreenOn();
 
-	SLOW_SCK_PORT |= 1 << SLOW_SCK_NUM;
+	SLOW_SCK_PORT |= (1 << SLOW_SCK_NUM);
 
 	/* init timer */
 	clockInit();
