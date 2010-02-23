@@ -238,7 +238,7 @@ int main(void) {
 	usbDeviceConnect();
 
 	/* all inputs except PC0, PC1 */
-	DDRC = 0x03;
+	DDRC |= 0x03;
 
 	SLOW_SCK_PORT |= (1 << SLOW_SCK_NUM);
 
