@@ -109,6 +109,20 @@ the newest features and options.
  * of the macros usbDisableAllRequests() and usbEnableAllRequests() in
  * usbdrv.h.
  */
+#ifndef __ASSEMBLER__
+extern void usbHadReset();
+extern void usbAddressAssigned();
+#endif
+
+#define USB_RESET_HOOK(resetStarts)     if(!resetStarts) { usbHadReset(); }
+/* This macro is a hook if you need to know when an USB RESET occurs. It has
+ * one parameter which distinguishes between the start of RESET state and its
+ * end.
+ */
+#define USB_SET_ADDRESS_HOOK()              usbAddressAssigned();
+/* This macro (if defined) is executed when a USB SET_ADDRESS request was
+ * received.
+ */
 
 /* -------------------------- Device Description --------------------------- */
 
