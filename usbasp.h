@@ -57,6 +57,6 @@
 
 #define SLOW_SCK_PORT PORTC
 #define SLOW_SCK_PIN  PINC
-#define SLOW_SCK_NUM  PC2
+#define SLOW_SCK_NUM  PC3 // unused
 
 #endif /* USBASP_H_ */
